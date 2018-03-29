@@ -7,6 +7,8 @@ import { of as observableOf } from 'rxjs/observable/of';
 import { throwIfAlreadyLoaded } from './module-import-guard';
 import { DataModule } from './data/data.module';
 import { AnalyticsService } from './utils/analytics.service';
+import { ProvidersModule } from './providers/providers.module';
+import { OAuthProvider } from './providers/oauth.provider';
 
 const socialLinks = [
   {
@@ -31,7 +33,7 @@ const NB_CORE_PROVIDERS = [
   ...NbAuthModule.forRoot({
     providers: {
       email: {
-        service: NbDummyAuthProvider,
+        service: OAuthProvider,
         config: {
           delay: 3000,
           login: {
@@ -71,6 +73,7 @@ const NB_CORE_PROVIDERS = [
     },
   },
   AnalyticsService,
+  ProvidersModule.forRoot().providers,
 ];
 
 @NgModule({
@@ -79,6 +82,7 @@ const NB_CORE_PROVIDERS = [
   ],
   exports: [
     NbAuthModule,
+    ProvidersModule,
   ],
   declarations: [],
 })
