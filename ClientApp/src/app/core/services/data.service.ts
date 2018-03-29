@@ -59,10 +59,10 @@ export class DataService {
     }
 
     private buildUrlSearchParams(params: any): HttpParams {
-        const searchParams = new HttpParams();
+        let searchParams = new HttpParams();
         for (const key in params) {
             if (params.hasOwnProperty(key)) {
-                searchParams.append(key, params[key]);
+                searchParams= searchParams.append(key, params[key]);
             }
         }
         return searchParams;
