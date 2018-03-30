@@ -8,7 +8,9 @@ import { throwIfAlreadyLoaded } from './module-import-guard';
 import { DataModule } from './data/data.module';
 import { AnalyticsService } from './utils/analytics.service';
 import { ProvidersModule } from './providers/providers.module';
-import { OAuthProvider } from './providers/oauth.provider';
+import { NbOAuth2Provider } from './providers/oauth.provider';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NbOAuth2Interceptor } from './providers/oauth-interceptor';
 
 const socialLinks = [
   {
@@ -33,12 +35,11 @@ const NB_CORE_PROVIDERS = [
   ...NbAuthModule.forRoot({
     providers: {
       email: {
-        service: OAuthProvider,
+        service: NbOAuth2Provider,
         config: {
-          delay: 3000,
-          login: {
-            rememberMe: true,
-          },
+          grant_type: 'password',
+          client_id: 'aspnetcorespa',
+          scope: 'openid profile email offline_access client_id roles',
         },
       },
     },
@@ -96,6 +97,7 @@ export class CoreModule {
       ngModule: CoreModule,
       providers: [
         ...NB_CORE_PROVIDERS,
+        { provide: HTTP_INTERCEPTORS, useClass: NbOAuth2Interceptor, multi: true },
       ],
     };
   }

@@ -1,6 +1,6 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { OAuthProvider } from './oauth.provider';
+import { NbOAuth2Provider } from './oauth.provider';
 
 @NgModule({
   imports: [
@@ -8,7 +8,7 @@ import { OAuthProvider } from './oauth.provider';
   ],
   declarations: [],
   providers: [
-    OAuthProvider,
+    NbOAuth2Provider,
   ],
 })
 export class ProvidersModule {
@@ -16,7 +16,7 @@ export class ProvidersModule {
   static forRoot(): ModuleWithProviders {
     return <ModuleWithProviders>{
       providers: [
-        OAuthProvider,
+        NbOAuth2Provider,
       ],
     };
   }
