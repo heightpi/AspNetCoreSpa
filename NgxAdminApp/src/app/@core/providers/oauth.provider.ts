@@ -4,13 +4,12 @@
  * Licensed under the MIT License. See License.txt in the project root for license information.
  */
 import { Injectable } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import { URLSearchParams } from '@angular/http';
-import { NbAbstractAuthProvider, NbAuthResult, NbAuthSimpleToken } from '@nebular/auth';
+import { NbAbstractAuthProvider, NbAuthResult} from '@nebular/auth';
 import { NbOAuth2ProviderConfig } from './oauth2-auth.options';
 
 /**
@@ -113,7 +112,7 @@ export class NbOAuth2Provider extends NbAbstractAuthProvider {
         },
     };
 
-    constructor(protected http: HttpClient, private route: ActivatedRoute) {
+    constructor(protected http: HttpClient) {
         super();
     }
 
@@ -260,9 +259,9 @@ export class NbOAuth2Provider extends NbAbstractAuthProvider {
             const clientId = this.getConfigValue(
                 'oAuthTokenRequestBase.client.id')
                 ;
-            const clientSecret = this.getConfigValue(
-                'oAuthTokenRequestBase.client.secret',
-            );
+            // const clientSecret = this.getConfigValue(
+            //     'oAuthTokenRequestBase.client.secret',
+            // );
 
             jsonBody[clientIdParamName] = clientId;
         }
