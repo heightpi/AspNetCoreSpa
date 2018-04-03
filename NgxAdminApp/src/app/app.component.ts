@@ -19,22 +19,10 @@ export class AppComponent implements OnInit {
   constructor(
     @Inject('BASE_URL') private baseUrl: string,
     @Inject(PLATFORM_ID) private platformId: string,
-    private analytics: AnalyticsService,
-    private oauthService: OAuthService) {
-    if (isPlatformBrowser(this.platformId)) {
-      this.configureOidc();
-    }
+    private analytics: AnalyticsService) {
   }
 
   ngOnInit() {
     this.analytics.trackPageViews();
   }
-
-  private configureOidc() {
-    this.oauthService.configure(authConfig(this.baseUrl));
-    this.oauthService.setStorage(localStorage);
-    this.oauthService.tokenValidationHandler = new JwksValidationHandler();
-    this.oauthService.loadDiscoveryDocumentAndTryLogin();
-  }
-
 }
